@@ -1,0 +1,10 @@
+.ais-SearchBox__root {
+  max-width: 550px;
+}
+.ais-SearchBox__input {
+  background: rgba(255, 253, 253, 0.19);
+  background-color: rgba(255, 253, 253, 0.19);
+  border: none;
+  border-radius: 0;
+  font-size: 12pt;
+}
