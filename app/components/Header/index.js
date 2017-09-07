@@ -1,21 +1,18 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import { SearchBox } from 'react-instantsearch/dom';
 import {
   AppBar,
   Button,
+  ButtonBase,
   Toolbar,
   Typography
 } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 import 'react-instantsearch-theme-algolia/style.css';
+import HeaderLink from './HeaderLink';
 import './styles.css';
 
-import A from './A';
-import Img from './Img';
-import NavBar from './NavBar';
-import HeaderLink from './HeaderLink';
 import messages from './messages';
 
 const styles = {
@@ -35,15 +32,19 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     return (
       <AppBar>
         <Toolbar>
-          <Typography type="title" color="inherit" className={classes.title}>
-            Bonflik
-          </Typography>
+          <HeaderLink to="/library">
+            <ButtonBase color="contrast" disableRipple>
+              <Typography type="title" color="inherit" className={classes.title}>
+                Bonflik
+              </Typography>
+            </ButtonBase>
+          </HeaderLink>
           <div className={classes.search}>
             <SearchBox translations={{ placeholder: 'Search your movie collection' }} />
           </div>
-          <Link to="/new">
+          <HeaderLink to="/new">
             <Button color="contrast">Add Movie</Button>
-          </Link>
+          </HeaderLink>
         </Toolbar>
       </AppBar>
     );

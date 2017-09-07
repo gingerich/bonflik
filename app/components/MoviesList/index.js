@@ -28,7 +28,7 @@ function MoviesList({ loading, error, movies }) {
 MoviesList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  movies: PropTypes.any,
+  movies: PropTypes.any
 };
 
 export default MoviesList;

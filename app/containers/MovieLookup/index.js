@@ -6,9 +6,9 @@ import throttle from 'lodash.throttle';
 import { TextField } from 'material-ui';
 import { ListItem, ListItemText } from 'material-ui/List';
 
+import MoviePoster from 'components/MoviePoster';
 import { TMDB_API_KEY } from './constants';
 import theme from './theme.css';
-import MoviePoster from 'components/MoviePoster';
 
 const moviedb = MovieDb(TMDB_API_KEY);
 
@@ -18,16 +18,12 @@ const moviedb = MovieDb(TMDB_API_KEY);
 const getSuggestionValue = (suggestion) => suggestion.title || suggestion.name;
 
 // Use your imagination to render suggestions.
-const renderSuggestion = (suggestion) => {
-  const imageSrc = (path, size = 185) => `http://image.tmdb.org/t/p/w${size}${path}`;
-  return (
-    <ListItem dense button key={suggestion.id}>
-      <MoviePoster path={suggestion.poster_path} size={92} />
-      
-      <ListItemText primary={suggestion.title} />
-    </ListItem>
-  );
-};
+const renderSuggestion = (suggestion) => (
+  <ListItem dense button key={suggestion.id}>
+    <MoviePoster path={suggestion.poster_path} size={92} />
+    <ListItemText primary={suggestion.title} />
+  </ListItem>
+);
 
 const renderInputComponent = (inputProps) => <TextField {...inputProps} />;
 

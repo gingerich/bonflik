@@ -38,14 +38,8 @@ import { imageUrl } from 'components/MoviePoster';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectMovies, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
-import A from 'components/A';
-import H2 from 'components/H2';
-import MoviesList from 'components/MoviesList';
-import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
-import Form from './Form';
-import Input from './Input';
-import Section from './Section';
+
 import messages from './messages';
 import { searchMovies } from '../App/actions';
 import { changeQuery } from './actions';
@@ -53,7 +47,7 @@ import { makeSelectQuery } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-const styles = theme => ({
+const styles = (theme) => ({
   row: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -63,14 +57,14 @@ const styles = theme => ({
     marginTop: 10
   },
   flexGrow: {
-    flexGrow: 1 
+    flexGrow: 1
   },
   flexRight: {
     flex: 1,
     textAlign: 'right'
   },
   card: {
-    width: 226,
+    width: 226
   },
   media: {
     height: 300
@@ -84,13 +78,10 @@ const styles = theme => ({
   }
 });
 
-const SideBar = () => {
-  return (
-    <div>
-
-    </div>
-  );
-};
+const SideBar = () => (
+  <div>
+  </div>
+);
 
 const Hit = withStyles(styles)(({ hit, classes }) => {
   return (
@@ -151,7 +142,7 @@ const SearchResultsHeader = withStyles(styles)(({ classes }) => {
 });
 
 const CustomHits = connectHits(({ hits, ...props }) => {
-  const hitList = hits.map(hit => <Hit hit={hit} />);
+  const hitList = hits.map((hit) => <Hit hit={hit} />);
   return (
     <Grid container spacing={16} {...props} >
       {hitList}
@@ -186,15 +177,11 @@ export class LibraryPage extends React.PureComponent { // eslint-disable-line re
   }
 
   render() {
-    const { loading, error, movies } = this.props;
-    const moviesListProps = {
-      loading,
-      error,
-      movies,
-    };
-
     return (
       <Wrapper>
+        <Helmet>
+          <meta name="description" content="INstantly search your entire home movie collection" />
+        </Helmet>
         <CenteredSection>
           <Content />
           <PoweredBy />

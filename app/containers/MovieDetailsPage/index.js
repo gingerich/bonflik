@@ -31,21 +31,17 @@ import { withStyles } from 'material-ui/styles';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import CloseIcon from 'material-ui-icons/Close';
 import styled from 'styled-components';
-import classes from 'classes';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import H2 from 'components/H2';
 import { imageUrl } from 'components/MoviePoster';
-import CenteredSection from './CenteredSection';
-import Section from './Section';
 import messages from './messages';
 import { loadMovie } from './actions';
 import { makeSelectMovie, makeSelectMovieLoading, makeSelectMovieLoadError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
     maxWidth: 500,
     margin: 'auto'
@@ -79,6 +75,7 @@ const styles = theme => ({
 
 const Wrapper = styled.div`
   width: 100%;
+  margin-top: 64px;
 `;
 
 export class MovieDetailPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -92,20 +89,6 @@ export class MovieDetailPage extends React.PureComponent { // eslint-disable-lin
     this.props.loadMoviePage(id);
   }
 
-  // render() {
-
-  //   return (
-  //     <article>
-  //       <div>
-  //         <Section>
-  //           <H2>
-  //             {movie.title}
-  //           </H2>
-  //         </Section>
-  //       </div>
-  //     </article>
-  //   );
-  // }
   handleExpandClick = () => {
     this.setState({ expanded: !this.state.expanded });
   };
@@ -117,14 +100,12 @@ export class MovieDetailPage extends React.PureComponent { // eslint-disable-lin
   render() {
     const { loading, error, movie, classes = {} } = this.props;
 
-    
-
     if (error) {
       return (
         <Snackbar
           anchorOrigin={{
             vertical: 'top',
-            horizontal: 'middle',
+            horizontal: 'middle'
           }}
           open={true}
           autoHideDuration={6e3}
@@ -156,6 +137,11 @@ export class MovieDetailPage extends React.PureComponent { // eslint-disable-lin
             <title>{movie.title}</title>
           </Helmet>
           <Card className={classes.card}>
+            <CardMedia
+              className={classes.media}
+              image={imageUrl(movie.poster_path, 780)}
+              title={movie.title}
+            />
             <CardHeader
               avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -164,11 +150,6 @@ export class MovieDetailPage extends React.PureComponent { // eslint-disable-lin
               }
               title={movie.title}
               subheader={movie.release_year}
-            />
-            <CardMedia
-              className={classes.media}
-              image={imageUrl(movie.poster_path, 780)}
-              title={movie.title}
             />
             <CardContent>
               <Typography paragraph>
@@ -236,11 +217,11 @@ MovieDetailPage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.bool,
+    PropTypes.bool
   ]),
   movie: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.bool,
+    PropTypes.bool
   ]),
   match: PropTypes.object,
   loadMoviePage: PropTypes.func
@@ -248,14 +229,14 @@ MovieDetailPage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    loadMoviePage: (id) => dispatch(loadMovie(id)),
+    loadMoviePage: (id) => dispatch(loadMovie(id))
   };
 }
 
 const mapStateToProps = createStructuredSelector({
   movie: makeSelectMovie(),
   loading: makeSelectMovieLoading(),
-  error: makeSelectMovieLoadError(),
+  error: makeSelectMovieLoadError()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

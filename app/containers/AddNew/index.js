@@ -7,13 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import TagsInput from 'react-tagsinput';
-import AutosizeInput from 'react-input-autosize';
 import {
   Button,
   Chip,
@@ -24,24 +19,14 @@ import {
 import { withStyles } from 'material-ui/styles';
 import styled from 'styled-components';
 
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 import request from 'utils/request';
-import H2 from 'components/H2';
-import MoviePoster, { imageUrl } from 'components/MoviePoster';
+import { imageUrl } from 'components/MoviePoster';
 import MovieLookup from 'containers/MovieLookup';
-import CenteredSection from './CenteredSection';
 import Form from './Form';
-import Input from './Input';
 import Section from './Section';
 import messages from './messages';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     // display: 'flex',
     flexWrap: 'wrap',
@@ -104,7 +89,7 @@ const Backdrop = ({ path, size }) => {
 };
 
 export class AddNew extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       submitted: false,
@@ -176,10 +161,6 @@ export class AddNew extends React.PureComponent { // eslint-disable-line react/p
       onChange: this.changeEventHandler('title')
     };
 
-    const renderInput = (props) => {
-      return <TextField {...props} className={classes.textField} />;
-    };
-
     const renderTag = (props) => {
       const { tag, key, disabled, onRemove, getTagDisplayValue, ...other } = props;
       return (
@@ -216,7 +197,8 @@ export class AddNew extends React.PureComponent { // eslint-disable-line react/p
           <Form className={classes.container} onSubmit={this.handleSubmit}>
             <Paper className={classes.paper} elevation={4}>
               <MovieLookup {...movieLookupProps} />
-              <TextField multiline
+              <TextField
+                multiline
                 id="overview"
                 label="Overview"
                 placeholder="Plot overview"
@@ -278,48 +260,5 @@ export class AddNew extends React.PureComponent { // eslint-disable-line react/p
 AddNew.propTypes = {
   history: PropTypes.object
 };
-
-// AddNew.propTypes = {
-//   loading: PropTypes.bool,
-//   error: PropTypes.oneOfType([
-//     PropTypes.object,
-//     PropTypes.bool,
-//   ]),
-//   repos: PropTypes.oneOfType([
-//     PropTypes.array,
-//     PropTypes.bool,
-//   ]),
-//   onSubmitForm: PropTypes.func,
-//   username: PropTypes.string,
-//   onChangeUsername: PropTypes.func,
-// };
-
-// export function mapDispatchToProps(dispatch) {
-//   return {
-//     onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
-//     onSubmitForm: (evt) => {
-//       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-//       dispatch(loadRepos());
-//     },
-//   };
-// }
-
-// const mapStateToProps = createStructuredSelector({
-//   // repos: makeSelectRepos(),
-//   // username: makeSelectUsername(),
-//   // loading: makeSelectLoading(),
-//   // error: makeSelectError(),
-// });
-
-// const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-// const withReducer = injectReducer({ key: 'home', reducer });
-// const withSaga = injectSaga({ key: 'home', saga });
-
-// export default compose(
-//   withReducer,
-//   withSaga,
-//   withConnect,
-// )(AddNew);
 
 export default withStyles(styles)(AddNew);
